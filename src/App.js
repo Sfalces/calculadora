@@ -10,6 +10,7 @@ export const rows= [
 ]
 export const operations = ['+', '-', '*', '/']
 export const equalSign = '='
+export const reset = 'C'
 
 export const  Calculator = () => {
 
@@ -18,7 +19,6 @@ export const  Calculator = () => {
   const handleClick = op => ()  => {
     setValue(value.concat(op))
   }
-  
   return (
     <section>
       <h1>Calculadora</h1>
@@ -44,6 +44,7 @@ export const  Calculator = () => {
           ))
         }
         <button onClick={() => setValue(evaluate(value))}>{equalSign}</button>
+        <button onClick={() => setValue('')}>{reset}</button>
       </div>
     </section>
   );

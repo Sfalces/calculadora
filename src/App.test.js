@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { Calculator, number, operations, equalSign } from './App';
+import { Calculator, number, operations, equalSign, reset } from './App';
 
 describe('Calculator', () => {
  
@@ -81,5 +81,48 @@ describe('Calculator', () => {
 
     const input = screen.getByRole('textbox')
     expect(input.value).toBe('2')
+  })
+  it('should show an empty user input', () =>{
+    render(<Calculator/>)
+    const one = screen.getByText('1')
+    fireEvent.click(one)
+    
+    const plus = screen.getByText('+')
+    fireEvent.click(plus)
+
+    fireEvent.click(one)
+
+    const equal = screen.getByText(equalSign)
+    fireEvent.click(equal)
+
+    const clean = screen.getByText(reset)
+    fireEvent.click(clean)
+
+
+    const input = screen.getByRole('textbox')
+    expect(input.value).toBe('')
+  })
+  it('should calculate based previous calculation', () =>{
+    render(<Calculator/>)
+    const one = screen.getByText('1')
+    fireEvent.click(one)
+    
+    const plus = screen.getByText('+')
+    fireEvent.click(plus)
+
+    fireEvent.click(one)
+
+    const equal = screen.getByText(equalSign)
+    fireEvent.click(equal)
+
+    const minusButton = screen.getByText('-')
+    fireEvent.click(minusButton)
+
+    const two = screen.getByText('2')
+    fireEvent.click(two)
+    
+
+    const input = screen.getByRole('textbox')
+    expect(input.value).toBe('0')
   })
 })
